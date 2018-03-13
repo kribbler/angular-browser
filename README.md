@@ -6,5 +6,5 @@ $ npm install
 # start server
 $ node server.js
 
-#run tests
+# run tests
 $ karma start
