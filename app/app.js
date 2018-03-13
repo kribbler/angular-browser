@@ -2,6 +2,24 @@
     'use strict';  
     var app = angular.module("angularBrowser", ['ngMaterial']); 
 
+    app.filter('orderObjectBy', function(){
+        return function(input, attribute) {
+            if (!angular.isObject(input)) return input;
+
+            var array = [];
+            for(var objectKey in input) {
+                array.push(input[objectKey]);
+            }
+
+            array.sort(function(a, b){
+                a = parseInt(a[attribute]);
+                b = parseInt(b[attribute]);
+                return a - b;
+            });
+            return array;
+        }
+    });
+      
     app.service("RestService", ['$http', '$q', function($http, $q) {
       this.urlBase = './data/files.json';
       // Get the list of files
