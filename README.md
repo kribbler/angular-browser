@@ -1,6 +1,6 @@
 # angular-browser
 
-#install first
+# install first
 $ npm install
 
 # start server
