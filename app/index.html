@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <base href="/">
+
+  <title>AngularJS File Browser</title>
+
+  <link rel = "stylesheet" type="text/css"
+         href = "./vendor/angular-material/angular-material.min.css">
+      <script src = "./vendor/angular/angular.js"></script>
+      <script src = "./vendor/angular-animate/angular-animate.min.js"></script>
+      <script src = "./vendor/angular-aria/angular-aria.min.js"></script>
+      <script src = "./vendor/angular-messages/angular-messages.min.js"></script>
+      <script src = "./vendor/angular-material/angular-material.min.js"></script>
+  <!--our angular app-->
+  <script src="app.js"></script>
+</head>
+
+<body ng-app="angularBrowser" ng-cloak>
+
+    <md-toolbar color="primary">
+        <div class="md-toolbar-tools">
+            <h2 class = "md-flex">AngularJS File Browser</h2>
+         </div>
+    </md-toolbar>
+<md-content flex layout-padding>
+    <div ng-controller="myCtrl">
+      <md-input-container>
+        <label>Filter by Name</label>
+        <input ng-model="search.name">
+      </md-input-container>
+      <md-list>
+        <md-list-item>
+            <div flex="10" ng-click="orderBy('type')"><strong>Type</strong></div>
+            <div flex="40" ng-click="orderBy('name')"><strong>Name</strong></div>
+            <div flex="40" ng-click="orderBy('added')"><strong>Date</strong></div>
+        </md-list-item>
+        <md-list-item ng-if="innerFolder"><a href="" ng-click="goUp()">..</a></md-list-item>
+        <md-list-item ng-repeat="entry in currentFileStructure | orderObjectBy: 'type' | filter:search:strict">
+            <div flex="10">
+                <span ng-if="entry.type != 'folder'"><a href="" ng-click="viewFile(entry.name)">View</a></span>
+                <span ng-if="entry.type == 'folder'"><a href="" ng-click="exploreFolder(entry.name)">Explore</a></span>
+            </div>
+            <div flex="40">{{entry.name}}</div>
+            <div flex="40">{{entry.added}}</div>
+        </md-list-item>
+      </md-list>
+      <div ng-if="errorMsg">Some errors ocured</div>
+      <div ng-if="showFile">File <strong>{{fileName}}</strong> should be downloaded</div>
+    </div>         
+</md-content>
+</body>
+</html>
